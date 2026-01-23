@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import Navbar from '@/ui/layout/Navbar'
 import './globals.css'
-
+import { cookies } from 'next/headers'
+import { cookiesValidation } from '@/lib/cookies'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -19,15 +20,17 @@ export const metadata: Metadata = {
   description: 'App to track your DEKA training zones and workouts',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const cookieStore = await cookies()
+  const { validToken } = await cookiesValidation(cookieStore)
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Navbar />
+        <Navbar validToken={validToken} />
         {children}
       </body>
     </html>
