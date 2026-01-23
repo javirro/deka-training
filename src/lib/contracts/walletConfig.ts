@@ -5,7 +5,7 @@ import { PRIVATE_KEY } from '../envs'
 
 export const walletClient = createWalletClient({
   chain: sepolia,
-  transport: http(),
+  transport: http("https://ethereum-sepolia-rpc.publicnode.com"),
   account: privateKeyToAccount(PRIVATE_KEY),
 }).extend(publicActions)
 

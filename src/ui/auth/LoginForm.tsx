@@ -22,10 +22,10 @@ const LoginForm = () => {
 
     setLoading(true)
     setError('')
-
+    console.log('Submitting login form with:', { email, password })
     try {
       const result = await loginAction(email, password)
-
+      console.log('Login action result:', result)
       if (result.success) {
         // Redirect to home or dashboard
         router.push('/')

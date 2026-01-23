@@ -7,7 +7,7 @@ import { cookies } from 'next/headers'
 export async function loginAction(email: string, password: string) {
   try {
     const { valid: isValid, userId } = await verifyPassword(email, password)
-
+    console.log('Password verification result:', isValid, userId)
     if (!isValid) {
       return { success: false, error: 'Invalid credentials' }
     }
