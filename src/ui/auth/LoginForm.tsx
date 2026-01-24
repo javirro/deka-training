@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { InputLWithLabel } from '../base/Input'
-import { loginAction } from '@/app/auth/actions'
+import { loginAction } from '@/actions/loginAction'
 
 const LoginForm = () => {
   const [email, setEmail] = useState('')

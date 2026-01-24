@@ -1,5 +1,6 @@
-import { convertUnixToDayMonthYear } from '../time';
-import { RawZoneData, ZoneData } from '../zoneTypes';
+import { Hex } from 'viem'
+import { convertUnixToDayMonthYear } from '../time'
+import { RawZoneData, ZoneData } from '../zoneTypes'
 import { DEKA_ABI } from './dekaTrainingAbi'
 import { applyKeccak256 } from './utils'
 import { DEKA_TRAINING_ADDRESS, walletClient } from './walletConfig'
@@ -33,12 +34,12 @@ export const getZoneTrainingsPaginated = async (userId: number, zoneId: number, 
   if (formattedZoneId < 0) {
     throw new Error('Invalid zone ID')
   }
-  const rawData = await walletClient.readContract({
+  const rawData = (await walletClient.readContract({
     address: DEKA_TRAINING_ADDRESS,
     abi: DEKA_ABI,
     functionName: 'getZoneTrainingsPaginated',
     args: [userId, formattedZoneId, page, pageSize],
-  }) as Array<RawZoneData>
+  })) as Array<RawZoneData>
   const timeOrderedData = rawData.sort((a, b) => {
     if (a.timeInSeconds < b.timeInSeconds) return -1
     if (a.timeInSeconds > b.timeInSeconds) return 1
@@ -51,4 +52,20 @@ export const getZoneTrainingsPaginated = async (userId: number, zoneId: number, 
     index: Number(entry.index),
   }))
   return data
+}
+
+export const registerNewTraining = async (userId: number, zoneId: number, timeInSeconds: number, timestamp: number): Promise<Hex> => {
+  const formattedZoneId = zoneId - 1 // In solidity enums start at 0 and in the app zones start at 1
+  if (formattedZoneId < 0) {
+    throw new Error('Invalid zone ID')
+  }
+  const txHash = await walletClient.writeContract({
+    address: DEKA_TRAINING_ADDRESS,
+    abi: DEKA_ABI,
+    functionName: 'addNewTraining',
+    args: [userId, formattedZoneId, timeInSeconds, timestamp],
+  })
+  await walletClient.waitForTransactionReceipt({ hash: txHash })
+  console.log('Transaction confirmed with hash:', txHash)
+  return txHash as Hex
 }

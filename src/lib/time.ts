@@ -13,3 +13,12 @@ export const convertUnixToDayMonthYear = (unixTimestamp: number): string => {
   const year = date.getUTCFullYear()
   return `${day}/${month}/${year}`
 }
+
+export const convertMinutesAndSecondsToTotalSeconds = (minutes: number, seconds: number): number => {
+  return minutes * 60 + seconds
+}
+
+export const convertStringDateToUnitSecondsTimestamp = (dateString: string): number => {
+  const date = new Date(dateString)
+  return Math.floor(date.getTime() / 1000)
+}

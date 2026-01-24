@@ -16,7 +16,7 @@ export const DEKA_ZONES: DekaZone[] = [
     reps: 30,
     men: '25 kg',
     women: '15 kg',
-    unit: 'repeticiones',
+    unit: 'reps',
   },
   {
     id: 2,
@@ -30,7 +30,7 @@ export const DEKA_ZONES: DekaZone[] = [
     name: 'Saltos al cajón',
     description: '20 saltos al cajón de 60 cm',
     reps: 20,
-    unit: 'repeticiones',
+    unit: 'reps',
   },
   {
     id: 4,
@@ -39,7 +39,7 @@ export const DEKA_ZONES: DekaZone[] = [
     reps: 25,
     men: '9 kg',
     women: '6 kg',
-    unit: 'repeticiones',
+    unit: 'reps',
   },
   {
     id: 5,
@@ -66,12 +66,12 @@ export const DEKA_ZONES: DekaZone[] = [
   },
   {
     id: 8,
-    name: 'Balón medicinal por encima del muro',
+    name: 'Balón medicinal',
     description: '20 lanzamientos de balón medicinal por encima de un muro de 1,2 metros',
     reps: 20,
     men: '30 kg',
     women: '20 kg',
-    unit: 'repeticiones',
+    unit: 'reps',
   },
   {
     id: 9,
@@ -87,6 +87,6 @@ export const DEKA_ZONES: DekaZone[] = [
     reps: 20,
     men: '20 kg',
     women: '10 kg',
-    unit: 'repeticiones',
+    unit: 'reps',
   },
 ]
